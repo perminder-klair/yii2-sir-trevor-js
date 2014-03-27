@@ -12,14 +12,15 @@ class SirTrevor extends \yii\widgets\InputWidget
 {
     public $debug = 'true';
     public $language = 'en';
-    public $blockTypes = ["Heading","Text","List","Quote","Image","Video"];
+    public $el = 'sir-trevor';
+    public $blockTypes = ["Heading", "Text", "List", "Quote", "Image", "Video"];
     public $imageUploadUrl = 'site/upload';
 
-    public $init = null;
+    public $initJs = null;
     public $blockOptions = null;
-    public $el = 'sir-trevor';
 
-    public function init(){
+    public function init()
+    {
         parent::init();
 
         if (is_null($this->blockOptions)) {
@@ -29,26 +30,40 @@ class SirTrevor extends \yii\widgets\InputWidget
             $this->blockOptions .= "}";
         }
 
-        if (is_null($this->init)) {
-            $this->init = 'SirTrevor.DEBUG = ' . $this->debug . ';';
-            $this->init .= 'SirTrevor.LANGUAGE = "' . $this->language . '";';
-            $this->init .= 'SirTrevor.setDefaults({ uploadUrl: "' . Yii::$app->urlManager->createUrl([$this->imageUploadUrl]) . '" });';
-            $this->init .= "window.editor = new SirTrevor.Editor(" . $this->blockOptions . ");";
+        if (is_null($this->initJs)) {
+            $this->initJs = 'SirTrevor.DEBUG = ' . $this->debug . ';';
+            $this->initJs .= 'SirTrevor.LANGUAGE = "' . $this->language . '";';
+            $this->initJs .= 'SirTrevor.setDefaults({ uploadUrl: "' . Yii::$app->urlManager->createUrl([$this->imageUploadUrl]) . '" });';
+            $this->initJs .= "window.editor = new SirTrevor.Editor(" . $this->blockOptions . ");";
         }
+
+        $this->options['class'] = $this->el;
 
         Yii::setAlias('@sirtrevorjs', dirname(__FILE__));
         $this->registerAsset();
+
+        echo $this->renderInput();
     }
 
-    public function run()
+    /**
+     * Render the text area input
+     */
+    protected function renderInput()
     {
-        return Html::tag('textarea', '', ['name' => $this->attribute,'class' => $this->el]);
+        if ($this->hasModel()) {
+            $input = Html::activeTextArea($this->model, $this->attribute, $this->options);
+        } else {
+            $input = Html::textArea($this->name, $this->value, $this->options);
+        }
+
+        return $input;
     }
 
-    private function registerAsset(){
+    protected function registerAsset()
+    {
         $view = $this->getView();
         SirTrevorAsset::register($view)->language = $this->language;
 
-        $view->registerJs('$(function(){' . $this->init . '});');
+        $view->registerJs('$(function(){' . $this->initJs . '});');
     }
 }
