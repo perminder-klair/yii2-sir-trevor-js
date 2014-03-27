@@ -10,11 +10,15 @@ class SirTrevorAsset extends AssetBundle {
     public $sourcePath = '@sirtrevorjs/bower_components';
 
     public $css = [
-        'sir-trevor-js/sir-trevor.css',
+        'sir-trevor-js/sir-trevor-icons.css',
+        'sir-trevor-js/sir-trevor.css'
     ];
 
     public $js = [
-        "sir-trevor-js/sir-trevor.js"
+        "underscore/underscore.js",
+        "Eventable/eventable.js",
+        "sir-trevor-js/sir-trevor.js",
+        "sir-trevor-js/locales/de.js"
     ];
 
     public $depends = [
