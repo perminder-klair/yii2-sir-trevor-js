@@ -3,68 +3,48 @@
 namespace kato\sirtrevorjs;
 
 use Yii;
+use yii\web\View;
+use yii\helpers\Html;
+use yii\helpers\Json;
 use kato\sirtrevorjs\assets\SirTrevorAsset;
 
-class SirTrevor extends \yii\base\widget
+class SirTrevor extends \yii\widgets\InputWidget
 {
-    public $debug = false;
+    public $debug = 'true';
     public $language = 'en';
-    public $element;
-    public $model;
+    public $blockTypes = ["Heading","Text","List","Quote","Image","Video","Tweet"];
+    public $imageUploadUrl = 'site/upload';
 
-    public $assetMode = 'complete';
+    public $init;
+    public $options;
+    public $el = 'sir-trevor';
 
     public function init(){
         parent::init();
 
         Yii::setAlias('@sirtrevorjs', dirname(__FILE__));
-
         $this->registerAsset();
     }
 
     public function run()
     {
-        return '<form>
-    <div class="errors"></div>
-    <textarea class="sir-trevor" name="content"></textarea>
-    <input type="submit" value="Submit">
-  </form>';
+        return Html::tag('textarea', '', ['name' => $this->attribute,'class' => $this->el]);
     }
 
     private function registerAsset(){
         $view = $this->getView();
-        SirTrevorAsset::register($view);
+        SirTrevorAsset::register($view)->language = $this->language;
 
-        $js = "$(function(){
-      SirTrevor.DEBUG = true;
-      SirTrevor.LANGUAGE = 'en';
+        $this->options = "{";
+        $this->options .= "el: $('." . $this->el . "'),";
+        $this->options .= "blockTypes: " . Json::encode($this->blockTypes);
+        $this->options .= "}";
 
-      SirTrevor.setBlockOptions('Text', {
-        onBlockRender: function() {
-          console.log('Text block rendered');
-        }
-      });
+        $this->init = 'SirTrevor.DEBUG = ' . $this->debug . ';';
+        $this->init .= 'SirTrevor.LANGUAGE = "' . $this->language . '";';
+        $this->init .= 'SirTrevor.setDefaults({ uploadUrl: "' . Yii::$app->urlManager->createUrl([$this->imageUploadUrl]) . '" });';
+        $this->init .= "window.editor = new SirTrevor.Editor(" . $this->options . ");";
 
-      window.editor = new SirTrevor.Editor({
-        el: $('.sir-trevor'),
-        blockTypes: [
-          'Heading',
-          'Text',
-          'List',
-          'Quote',
-          'Image',
-          'Video',
-          'Tweet'
-        ]
-      });
-
-      $('form').bind('submit', function(){
-        return false;
-      });
-
-    });";
-
-
-        $view->registerJs($js);
+        $view->registerJs('$(function(){' . $this->init . '});', View::POS_END, 'sir-trevor-options');
     }
 }
