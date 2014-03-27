@@ -14,7 +14,7 @@ class SirTrevor extends \yii\widgets\InputWidget
     public $language = 'en';
     public $el = 'sir-trevor';
     public $blockTypes = ["Heading", "Text", "List", "Quote", "Image", "Video"];
-    public $imageUploadUrl = 'site/upload';
+    public $imageUploadUrl = null;
 
     public $initJs = null;
     public $blockOptions = null;
@@ -22,6 +22,10 @@ class SirTrevor extends \yii\widgets\InputWidget
     public function init()
     {
         parent::init();
+
+        if (is_null($this->imageUploadUrl)) {
+            $this->imageUploadUrl = Yii::$app->urlManager->createUrl(['site/upload']);
+        }
 
         if (is_null($this->blockOptions)) {
             $this->blockOptions = "{";
@@ -33,7 +37,7 @@ class SirTrevor extends \yii\widgets\InputWidget
         if (is_null($this->initJs)) {
             $this->initJs = 'SirTrevor.DEBUG = ' . $this->debug . ';';
             $this->initJs .= 'SirTrevor.LANGUAGE = "' . $this->language . '";';
-            $this->initJs .= 'SirTrevor.setDefaults({ uploadUrl: "' . Yii::$app->urlManager->createUrl([$this->imageUploadUrl]) . '" });';
+            $this->initJs .= 'SirTrevor.setDefaults({ uploadUrl: "' . $this->imageUploadUrl . '" });';
             $this->initJs .= "window.editor = new SirTrevor.Editor(" . $this->blockOptions . ");";
         }
 
