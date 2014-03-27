@@ -1,0 +1,7 @@
+{
+    "name": "yii2-sir-trevor-js",
+    "version": "0.0.1",
+    "dependencies": {
+        "sir-trevor-js": "0.3.2"
+    }
+}
