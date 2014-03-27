@@ -12,15 +12,29 @@ class SirTrevor extends \yii\widgets\InputWidget
 {
     public $debug = 'true';
     public $language = 'en';
-    public $blockTypes = ["Heading","Text","List","Quote","Image","Video","Tweet"];
+    public $blockTypes = ["Heading","Text","List","Quote","Image","Video"];
     public $imageUploadUrl = 'site/upload';
 
-    public $init;
-    public $options;
+    public $init = null;
+    public $blockOptions = null;
     public $el = 'sir-trevor';
 
     public function init(){
         parent::init();
+
+        if (is_null($this->blockOptions)) {
+            $this->blockOptions = "{";
+            $this->blockOptions .= "el: $('." . $this->el . "'),";
+            $this->blockOptions .= "blockTypes: " . Json::encode($this->blockTypes);
+            $this->blockOptions .= "}";
+        }
+
+        if (is_null($this->init)) {
+            $this->init = 'SirTrevor.DEBUG = ' . $this->debug . ';';
+            $this->init .= 'SirTrevor.LANGUAGE = "' . $this->language . '";';
+            $this->init .= 'SirTrevor.setDefaults({ uploadUrl: "' . Yii::$app->urlManager->createUrl([$this->imageUploadUrl]) . '" });';
+            $this->init .= "window.editor = new SirTrevor.Editor(" . $this->blockOptions . ");";
+        }
 
         Yii::setAlias('@sirtrevorjs', dirname(__FILE__));
         $this->registerAsset();
@@ -35,16 +49,6 @@ class SirTrevor extends \yii\widgets\InputWidget
         $view = $this->getView();
         SirTrevorAsset::register($view)->language = $this->language;
 
-        $this->options = "{";
-        $this->options .= "el: $('." . $this->el . "'),";
-        $this->options .= "blockTypes: " . Json::encode($this->blockTypes);
-        $this->options .= "}";
-
-        $this->init = 'SirTrevor.DEBUG = ' . $this->debug . ';';
-        $this->init .= 'SirTrevor.LANGUAGE = "' . $this->language . '";';
-        $this->init .= 'SirTrevor.setDefaults({ uploadUrl: "' . Yii::$app->urlManager->createUrl([$this->imageUploadUrl]) . '" });';
-        $this->init .= "window.editor = new SirTrevor.Editor(" . $this->options . ");";
-
-        $view->registerJs('$(function(){' . $this->init . '});', View::POS_END, 'sir-trevor-options');
+        $view->registerJs('$(function(){' . $this->init . '});');
     }
 }
