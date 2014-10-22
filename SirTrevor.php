@@ -10,7 +10,7 @@ use kato\sirtrevorjs\assets\SirTrevorAsset;
 
 class SirTrevor extends \yii\widgets\InputWidget
 {
-    public $debug = 'true';
+    public $debug = 'false';
     public $language = 'en';
     public $el = 'sir-trevor';
     public $blockTypes = ["Heading", "Text", "List", "Quote", "Image", "Video"];
