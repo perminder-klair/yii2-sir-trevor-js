@@ -2,9 +2,10 @@
   "name": "eventable",
   "version": "1.0.5",
   "description": "The events part of Backbone",
+  "license": "MIT",
+  "scripts": [
+    "eventable.js"
+  ],
   "main": "eventable.js",
-  "ignore": [
-    "test",
-    "components"
-  ]
+  "repo": "https://github.com/madebymany/eventable"
 }

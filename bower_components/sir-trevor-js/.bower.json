@@ -1,6 +1,5 @@
 {
   "name": "sir-trevor-js",
-  "version": "0.3.2",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -16,14 +15,13 @@
     "Eventable": "~1.0.1",
     "jquery": "~1.9.1"
   },
-  "homepage": "https://github.com/madebymany/sir-trevor-js",
-  "_release": "0.3.2",
+  "homepage": "https://github.com/perminder-klair/sir-trevor-js",
+  "_release": "472633fefe",
   "_resolution": {
-    "type": "version",
-    "tag": "v0.3.2",
-    "commit": "89f86d181e1b980939231271e2509835153fff90"
+    "type": "commit",
+    "commit": "472633fefeb2830cb0225a19d8ebe378de7c92aa"
   },
-  "_source": "git://github.com/madebymany/sir-trevor-js.git",
-  "_target": "0.3.2",
-  "_originalSource": "sir-trevor-js"
+  "_source": "https://github.com/perminder-klair/sir-trevor-js.git",
+  "_target": "472633fefeb2830cb0225a19d8ebe378de7c92aa",
+  "_originalSource": "https://github.com/perminder-klair/sir-trevor-js.git"
 }

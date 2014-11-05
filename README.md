@@ -2,6 +2,8 @@ Sir Trevor Editor for Yii2
 ==========================
 Sir Trevor Editor for Yii2
 
+![Sir Trevor in action](https://raw.github.com/madebymany/sir-trevor-js/master/examples/sir-trevor.gif)
+
 Installation
 ------------
 
