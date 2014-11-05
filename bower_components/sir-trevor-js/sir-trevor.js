@@ -2305,9 +2305,7 @@
   
   SirTrevor.Blocks.Redactor = (function(){
   
-      var template = _.template([
-          '<textarea class="redactor-editor st-required st-text-block" contenteditable="true"></textarea>'
-      ].join("\n"));
+      var timeStamp = null;
   
       return SirTrevor.Block.extend({
   
@@ -2318,11 +2316,12 @@
           icon_name: '<i class="fa fa-pencil-square-o"></i>',
   
           editorHTML: function() {
-              return template(this);
+              timeStamp = Date.now();
+              return '<div id="redactor-editor-' + timeStamp + '" class="st-required st-text-block" contenteditable="true"></div>';
           },
   
           onBlockRender : function () {
-              $('.redactor-editor').redactor();
+              $('#redactor-editor-' + timeStamp).redactor();
           },
   
           loadData: function(data){
@@ -2606,10 +2605,6 @@
   
   SirTrevor.Blocks.Wysihtml = (function(){
   
-      var template = _.template([
-          '<textarea class="wysihtml-editor st-required st-text-block" contenteditable="true"></textarea>'
-      ].join("\n"));
-  
       return SirTrevor.Block.extend({
   
           type: "wysihtml",
@@ -2619,13 +2614,14 @@
           icon_name: '<i class="fa fa-pencil-square-o"></i>',
   
           editorHTML: function() {
-              return template(this);
+              timeStamp = Date.now();
+              return '<div id="wysihtml-editor-' + timeStamp + '" class="st-required st-text-block" contenteditable="true"></div>';
           },
   
           onBlockRender : function () {
-              $('.wysihtml-editor').wysihtml5();
+              $('#wysihtml-editor-' + timeStamp).wysihtml5();
           },
-  
+          
           loadData: function(data){
               this.getTextBlock().html(SirTrevor.toHTML(data.text, this.type));
           },
