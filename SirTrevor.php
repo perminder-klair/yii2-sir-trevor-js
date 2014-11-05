@@ -31,7 +31,7 @@ class SirTrevor extends \yii\widgets\InputWidget
     /**
      * @var array
      */
-    public $blockTypes = ["Heading", "Text", "List", "Quote", "Image", "Video", "Redactor"];
+    public $blockTypes = ["Heading", "Text", "List", "Quote", "Image", "Video"];
 
     /**
      * @var null
