@@ -1,15 +1,35 @@
 <?php
 
-namespace kato\sirtrevorjs;
+namespace kato\sirtrevorjs\yii1compat;
 
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use kato\sirtrevorjs\assets\SirTrevorAsset;
+use kato\sirtrevorjs\yii1compat\ESirTrevorView;
 use yii\web\JsExpression;
 
-class SirTrevor extends \yii\widgets\InputWidget
+/**
+ * Class ESirTrevor
+ *
+ * An almost identical class compared to SirTrevor, except for adaptations that makes it possible
+ * to use in Yii 1 themes together with the ESirTrevorView component.
+ */
+class ESirTrevor extends \CInputWidget
 {
+
+    protected $_view;
+    public $options = array();
+
+    public function getView()
+    {
+        if (is_null($this->_view)) {
+            // ESirTrevorView includes yii1 bridge methods
+            $this->_view = new ESirTrevorView();
+        }
+        return $this->_view;
+    }
+
     /**
      * debug mode off
      * @var bool
@@ -65,7 +85,7 @@ class SirTrevor extends \yii\widgets\InputWidget
 
         $this->options['class'] = $this->el;
 
-        Yii::setAlias('@sirtrevorjs', dirname(__FILE__));
+        Yii::setAlias('@sirtrevorjs', dirname(__FILE__) . DIRECTORY_SEPARATOR . '..');
         $this->registerAsset();
 
         echo $this->renderInput();
@@ -141,8 +161,23 @@ class SirTrevor extends \yii\widgets\InputWidget
             $this->initJs .= "window.editor = new SirTrevor.Editor(" . $this->getBlockOptions() . ");" . PHP_EOL;
         }
 
-        SirTrevorAsset::register($view)->language = $this->language;
+        // Registering assets through the ESirTrevorView yii1 bridge methods
+        $assetBundle = new SirTrevorAsset();
+        $assetBundle->depends = []; // To prevent triggering inclusion of yii2 jquery asset bundle
+        $assetBundle->language = $this->language;
+        $this->view->assetPath = $assetBundle->sourcePath;
+        $assetBundle->registerAssetFiles($view);
 
-        $view->registerJs('$(function(){' . $this->initJs . '});' . PHP_EOL);
+        // For yii1 compatibility we need to refrain from using View::POS_LOAD or View::POS_READY since that would attempt to include the yii2 jquery asset bundle
+        $view->registerJs(
+            '(function($){
+                "use strict";
+                $(function(){
+                        ' . $this->initJs . '
+                });
+            })(jQuery);',
+            $view::POS_END
+        );
+
     }
 }
