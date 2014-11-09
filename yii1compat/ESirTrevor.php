@@ -3,6 +3,7 @@
 namespace kato\sirtrevorjs\yii1compat;
 
 use Yii;
+use CHtml;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use kato\sirtrevorjs\assets\SirTrevorAsset;
@@ -97,9 +98,9 @@ class ESirTrevor extends \CInputWidget
     protected function renderInput()
     {
         if ($this->hasModel()) {
-            $input = Html::activeTextArea($this->model, $this->attribute, $this->options);
+            $input = CHtml::activeTextArea($this->model, $this->attribute, $this->options);
         } else {
-            $input = Html::textArea($this->name, $this->value, $this->options);
+            $input = CHtml::textArea($this->name, $this->value, $this->options);
         }
 
         return $input;
