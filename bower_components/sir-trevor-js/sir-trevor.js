@@ -4,7 +4,7 @@
  * Released under the MIT license
  * www.opensource.org/licenses/MIT
  *
- * 2014-11-05
+ * 2014-11-11
  */
 
 (function ($, _){
@@ -918,8 +918,7 @@
   
       this.drop_options = _.extend({}, SirTrevor.DEFAULTS.Block.drop_options, this.drop_options);
   
-      var drop_html = $(_.template(this.drop_options.html,
-                        { block: this }));
+      var drop_html = $(_.template(this.drop_options.html)({ block: this }));
   
       this.$editor.hide();
       this.$inputs.append(drop_html);
@@ -2233,7 +2232,7 @@
   */
   SirTrevor.Blocks.Heading = SirTrevor.Block.extend({
   
-    type: 'Heading',
+    type: 'heading',
   
     title: function(){ return i18n.t('blocks:heading:title'); },
   
@@ -2621,7 +2620,7 @@
           onBlockRender : function () {
               $('#wysihtml-editor-' + timeStamp).wysihtml5();
           },
-          
+  
           loadData: function(data){
               this.getTextBlock().html(SirTrevor.toHTML(data.text, this.type));
           },
@@ -3333,7 +3332,7 @@
         this.blocks.push(block);
         this._incrementBlockTypeCount(type);
   
-        block.focus();
+        !data && block.focus();
   
         SirTrevor.EventBus.trigger(data ? "block:create:existing" : "block:create:new", block);
         SirTrevor.log("Block created of type " + type);
