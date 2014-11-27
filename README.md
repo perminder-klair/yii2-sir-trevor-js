@@ -52,7 +52,6 @@ Then in view:
 echo $model->renderSirTrevor() 
 ```
 
-
 ## Yii 1
 
 This widget may be used in Yii 1 applications.

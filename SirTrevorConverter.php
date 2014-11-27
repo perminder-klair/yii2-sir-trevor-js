@@ -34,7 +34,7 @@ use \Michelf\MarkdownExtra as Markdown;
 
 /**
  * Class SirTrevorConverter
- * @package drmabuse\sirtrevorjs
+ * @package kato\sirtrevorjs
  * @author <pascalbrewing@gmail.com>
  */
 
