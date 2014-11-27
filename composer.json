@@ -14,5 +14,9 @@
         "psr-4": {
             "kato\\sirtrevorjs\\": ""
         }
+    },
+    "require": {
+        "yiisoft/yii2": "*",
+        "michelf/php-markdown": "1.*"
     }
 }

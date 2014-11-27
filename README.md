@@ -33,6 +33,26 @@ Once the extension is installed, simply use it in your code by  :
 <?= $form->field($model, 'content')->widget(\kato\sirtrevorjs\SirTrevor::classname()); ?>
 ```
 
+To Use Converter
+----------------
+Thanks to drmabuse!
+
+To echo out html content, in Yii2 active record do as done is following example:
+
+```php
+public function renderSirTrevor()
+{
+    $convertor = new \kato\sirtrevorjs\SirTrevorConverter();
+    return $convertor->toHtml($this->content);
+}
+```
+
+Then in view: 
+```php 
+echo $model->renderSirTrevor() 
+```
+
+
 ## Yii 1
 
 This widget may be used in Yii 1 applications.
