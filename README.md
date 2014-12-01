@@ -52,7 +52,7 @@ Then in view:
 echo $model->renderSirTrevor() 
 ```
 
-Tp Upload Images
+To Upload Images
 ----------------
 
 To upload Images, a demo file is included with extension `actions/UploadAction.php`
