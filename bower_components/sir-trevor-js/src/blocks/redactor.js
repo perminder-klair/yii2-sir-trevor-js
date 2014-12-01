@@ -1,38 +1,33 @@
+"use strict";
+
 /*
  Redactor Editor Block
  Make sure you initialize(loaded) following dependencies in your system to make this block work:
  redactor, fontawesome
  */
 
-SirTrevor.Blocks.Redactor = (function(){
+var Block = require('../block');
+var stToHTML = require('../to-html');
+var timeStamp = null;
 
-    var timeStamp = null;
+module.exports = Block.extend({
 
-    return SirTrevor.Block.extend({
+    type: "redactor",
 
-        type: "redactor",
+    title: function() { return 'Redactor'; },
 
-        title: function(){ return 'Redactor'; },
+    editorHTML: function() {
+        timeStamp = Date.now();
+        return '<div id="redactor-editor-' + timeStamp + '" class="st-required st-text-block" contenteditable="true"></div>';
+    },
 
-        icon_name: '<i class="fa fa-pencil-square-o"></i>',
+    icon_name: '<i class="fa fa-pencil-square-o"></i>',
 
-        editorHTML: function() {
-            timeStamp = Date.now();
-            return '<div id="redactor-editor-' + timeStamp + '" class="st-required st-text-block" contenteditable="true"></div>';
-        },
+    onBlockRender : function () {
+        $('#redactor-editor-' + timeStamp).redactor();
+    },
 
-        onBlockRender : function () {
-            $('#redactor-editor-' + timeStamp).redactor();
-        },
-
-        loadData: function(data){
-            this.getTextBlock().html(SirTrevor.toHTML(data.text, this.type));
-        },
-
-        toMarkdown: function(markdown) {
-            return markdown.replace(/^(.+)$/mg,"> $1");
-        }
-
-    });
-
-})();
+    loadData: function(data){
+        this.getTextBlock().html(stToHTML(data.text, this.type));
+    }
+});

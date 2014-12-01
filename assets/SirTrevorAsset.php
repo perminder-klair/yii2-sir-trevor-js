@@ -8,23 +8,8 @@ use yii\web\AssetBundle;
 class SirTrevorAsset extends AssetBundle {
 
     public $language;
+    public $debug = false;
     public $sourcePath = '@sirtrevorjs/bower_components';
-
-    public $css = [
-        'sir-trevor-js/sir-trevor-icons.css',
-        'sir-trevor-js/sir-trevor.css'
-    ];
-
-    public $js = [
-        "underscore/underscore.js",
-        "Eventable/eventable.js",
-        "sir-trevor-js/sir-trevor.js"
-    ];
-
-    public $depends = [
-        'yii\web\JqueryAsset',
-        'yii\web\YiiAsset'
-    ];
 
     public $publishOptions = [
         'forceCopy' => true
@@ -38,6 +23,27 @@ class SirTrevorAsset extends AssetBundle {
             $this->js[] = 'sir-trevor-js/locales/' . $language . '.js';
         }
 
+        if ($this->debug !== 'true') {
+            $this->js[] = 'sir-trevor-js/sir-trevor.js';
+        } else {
+            $this->js[] = 'sir-trevor-js/sir-trevor.debug.js';
+        }
+
         parent::registerAssetFiles($view);
     }
+
+    public $css = [
+        'sir-trevor-js/sir-trevor-icons.css',
+        'sir-trevor-js/sir-trevor.css',
+    ];
+
+    public $js = [
+        "es5-shim/es5-shim.js",
+        "es6-shim/es6-shim.js",
+    ];
+
+    public $depends = [
+        'yii\web\JqueryAsset',
+        'yii\web\YiiAsset',
+    ];
 }

@@ -1,8 +1,13 @@
+"use strict";
+
 /*
   Simple Image Block
 */
 
-SirTrevor.Blocks.Image = SirTrevor.Block.extend({
+
+var Block = require('../block');
+
+module.exports = Block.extend({
 
   type: "image",
   title: function() { return i18n.t('blocks:image:title'); },
@@ -20,9 +25,9 @@ SirTrevor.Blocks.Image = SirTrevor.Block.extend({
   onBlockRender: function(){
     /* Setup the upload button */
     this.$inputs.find('button').bind('click', function(ev){ ev.preventDefault(); });
-    this.$inputs.find('input').on('change', _.bind(function(ev){
+    this.$inputs.find('input').on('change', (function(ev) {
       this.onDrop(ev.currentTarget);
-    }, this));
+    }).bind(this));
   },
 
   onUploadSuccess : function(data) {

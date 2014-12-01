@@ -1,17 +1,54 @@
-/*global module:false*/
+/* global module:false */
+
+require('es5-shim');
+require('es6-shim');
+
 module.exports = function(grunt) {
 
-  var banner = ['/*!',
-                 ' * Sir Trevor JS v<%= pkg.version %>',
-                 ' *',
-                 ' * Released under the MIT license',
-                 ' * www.opensource.org/licenses/MIT',
-                 ' *',
-                 ' * <%= grunt.template.today("yyyy-mm-dd") %>',
-                 ' */\n\n'
-                ].join("\n");
+  var banner = [
+    '/*!',
+    ' * Sir Trevor JS v<%= pkg.version %>',
+    ' *',
+    ' * Released under the MIT license',
+    ' * www.opensource.org/licenses/MIT',
+    ' *',
+    ' * <%= grunt.template.today("yyyy-mm-dd") %>',
+    ' */\n\n',
+  ].join("\n");
 
-  grunt.loadNpmTasks('grunt-rigger');
+  var jsHintDefaultOptions = {
+    // Errors
+    bitwise: true,
+    camelcase: false,
+    curly: true,
+    eqeqeq: true,
+    forin: true,
+    freeze: true,
+    immed: true,
+    indent: 2,
+    latedef: true,
+    newcap: true,
+    noarg: true,
+    nonbsp: true,
+    nonew: true,
+    strict: true,
+    maxparams: 4,
+    maxdepth: 3,
+    maxcomplexity: 13, // this is quite complex, would be good to reduce
+    undef: true,
+    unused: 'vars',
+
+    // Relax
+    eqnull: true,
+
+    // Envs
+    browser: true,
+    jquery: true,
+    node: true,
+  }
+
+  grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -21,27 +58,32 @@ module.exports = function(grunt) {
 
     pkg: grunt.file.readJSON('package.json'),
 
-    'jasmine' : {
-      'sir-trevor': {
-        src : 'sir-trevor.js',
+    browserify: {
+      dist: {
+        src: 'index.js',
+        dest: 'sir-trevor.js',
+      },
+      debug: {
+        src: 'index.js',
+        dest: 'sir-trevor.debug.js',
         options: {
-          vendor: ['bower_components/jquery/jquery.js',
-                   'bower_components/underscore/underscore.js',
-                   'bower_components/Eventable/eventable.js'],
-          specs : 'spec/javascripts/**/*.spec.js',
-          helpers : 'spec/javascripts/helpers/*.js'
-        }
-      }
+          browserifyOptions: {
+            standalone: 'SirTrevor',
+            debug: true,
+          },
+        },
+      },
+      options: {
+        banner: banner,
+        browserifyOptions: {
+          standalone: 'SirTrevor',
+        },
+      },
     },
 
-    rig: {
-      build: {
-        options: {
-          banner: banner
-        },
-        files: {
-          'sir-trevor.js': ['src/sir-trevor.js']
-        }
+    karma: {
+      test: {
+        configFile: 'karma.conf.js'
       }
     },
 
@@ -50,7 +92,7 @@ module.exports = function(grunt) {
         mangle: false,
         banner: banner
       },
-      standard: {
+      dist: {
         files: {
           'sir-trevor.min.js': ['sir-trevor.js']
         }
@@ -60,50 +102,53 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: ['src/*.js', 'src/**/*.js', 'src/sass/*.scss'],
-        tasks: ['sass', 'rig']
+        tasks: ['dev'],
       }
     },
 
     jshint: {
-      all: ['sir-trevor.js'],
-
-      options: {
-        curly: true,
-        eqeqeq: true,
-        immed: false,
-        latedef: true,
-        newcap: true,
-        noarg: true,
-        sub: true,
-        undef: true,
-        boss: true,
-        eqnull: true,
-        browser: true
+      lib: {
+        src: ['index.js', 'src/**/*.js'],
+        options: Object.assign({
+          globals: {
+            i18n: true,
+            webkitURL: true,
+          },
+        }, jsHintDefaultOptions),
       },
-      globals: {
-        jQuery: true,
-        _: true,
-        console: true
-      }
+
+      tests: {
+        src: ['spec/**/*.js'],
+        options: Object.assign({
+          globals: {
+            _: true,
+            SirTrevor: true,
+            i18n: true,
+            webkitURL: true,
+            jasmine: true,
+            describe: true,
+            expect: true,
+            it: true,
+            spyOn: true,
+            beforeEach: true,
+          },
+        }, jsHintDefaultOptions),
+      },
     },
 
     sass: {
       dist: {
         files: {
-          'sir-trevor2.css': 'src/sass/main.scss'
+          'sir-trevor.css': 'src/sass/main.scss'
         }
       }
     }
 
   });
 
-  // Default task.
-  grunt.loadNpmTasks('grunt-contrib-jasmine');
-
-  grunt.registerTask('travis', ['rig', 'jasmine']);
-
-  grunt.registerTask('default', ['sass', 'rig', 'uglify', 'jasmine']);
-
-  grunt.registerTask('jasmine-browser', ['server','watch']);
+  grunt.registerTask('default', ['test', 'sass', 'browserify', 'uglify']);
+  grunt.registerTask('test', ['jshint', 'karma']);
+  grunt.registerTask('dev', ['sass', 'browserify:debug']);
+  grunt.registerTask('jasmine-browser', ['server', 'watch']);
 
 };

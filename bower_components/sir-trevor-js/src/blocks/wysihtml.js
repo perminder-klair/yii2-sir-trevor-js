@@ -1,36 +1,37 @@
+"use strict";
+
 /*
  Wysihtml Editor Block
  Make sure you initialize(loaded) following dependencies in your system to make this block work:
  bootstrap, bootstrap3-wysihtml5-bower, fontawesome
  */
 
-SirTrevor.Blocks.Wysihtml = (function(){
+/*
+ Text Block
+ */
 
-    return SirTrevor.Block.extend({
+var Block = require('../block');
+var stToHTML = require('../to-html');
+var timeStamp = null;
 
-        type: "wysihtml",
+module.exports = Block.extend({
 
-        title: function(){ return 'wysihtml'; },
+    type: "wysihtml",
 
-        icon_name: '<i class="fa fa-pencil-square-o"></i>',
+    title: function() { return 'wysihtml'; },
 
-        editorHTML: function() {
-            timeStamp = Date.now();
-            return '<div id="wysihtml-editor-' + timeStamp + '" class="st-required st-text-block" contenteditable="true"></div>';
-        },
+    editorHTML: function() {
+        timeStamp = Date.now();
+        return '<div id="wysihtml-editor-' + timeStamp + '" class="st-required st-text-block" contenteditable="true"></div>';
+    },
 
-        onBlockRender : function () {
-            $('#wysihtml-editor-' + timeStamp).wysihtml5();
-        },
+    icon_name: 'text',
 
-        loadData: function(data){
-            this.getTextBlock().html(SirTrevor.toHTML(data.text, this.type));
-        },
+    onBlockRender : function () {
+        $('#wysihtml-editor-' + timeStamp).wysihtml5();
+    },
 
-        toMarkdown: function(markdown) {
-            return markdown.replace(/^(.+)$/mg,"> $1");
-        }
-
-    });
-
-})();
+    loadData: function(data){
+        this.getTextBlock().html(stToHTML(data.text, this.type));
+    }
+});

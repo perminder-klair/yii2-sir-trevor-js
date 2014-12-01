@@ -25,7 +25,8 @@ Full documentation can be found [here](http://madebymany.github.io/sir-trevor-js
 5. [Laravel](https://github.com/caouecs/Laravel4-SirTrevorJS)
 6. [Django](https://github.com/philippbosch/django-sirtrevor)
 7. [Yii Framework](https://github.com/DrMabuse23/yii2-sir-trevor-js)
-
+8. [Symfony2](https://github.com/EDSI-Tech/SirTrevorBundle)
+9. [Yii1 - Yii2 Framework](https://github.com/perminder-klair/yii2-sir-trevor-js)
 
 ## Custom blocks
 
@@ -62,9 +63,7 @@ We use the awesome [Grunt](http://gruntjs.com/) for our build process. Before ge
 
 ``$ npm install``
 
-Make sure install the dependecies of bower. As you need jQuery, Eventable and Underscore while you are testing with Jasmine:
-
-``$ bower install``
+This should also install the dependencies of bower via the `postinstall` script. If you change bower dependencies, re-run this command.
 
 When completed you'll be able to run the various grunt commands provided:
 

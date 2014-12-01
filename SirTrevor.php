@@ -14,7 +14,7 @@ class SirTrevor extends \yii\widgets\InputWidget
      * debug mode off
      * @var bool
      */
-    public $debug = 'false';
+    public $debug = false;
 
     /**
      * default language english
@@ -31,7 +31,7 @@ class SirTrevor extends \yii\widgets\InputWidget
     /**
      * @var array
      */
-    public $blockTypes = ["Heading", "Text", "List", "Quote", "Image", "Video"];
+    public $blockTypes = ["Heading", "Text", "List", "Quote", "Image", "Video", "Textimage"];
 
     /**
      * @var null
@@ -62,6 +62,14 @@ class SirTrevor extends \yii\widgets\InputWidget
     public function init()
     {
         parent::init();
+
+        if (is_bool($this->debug)) {
+            if ($this->debug === true) {
+                $this->debug = 'true';
+            } else {
+                $this->debug = 'false';
+            }
+        }
 
         $this->options['class'] = $this->el;
 
@@ -141,7 +149,9 @@ class SirTrevor extends \yii\widgets\InputWidget
             $this->initJs .= "window.editor = new SirTrevor.Editor(" . $this->getBlockOptions() . ");" . PHP_EOL;
         }
 
-        SirTrevorAsset::register($view)->language = $this->language;
+        $asset = SirTrevorAsset::register($view);
+        $asset->language = $this->language;
+        $asset->debug = $this->debug;
 
         $view->registerJs('$(function(){' . $this->initJs . '});' . PHP_EOL);
     }
