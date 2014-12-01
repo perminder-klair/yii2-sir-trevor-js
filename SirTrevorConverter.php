@@ -72,7 +72,7 @@ class SirTrevorConverter
 
                 // check if we have a converter for this type
                 $converter = $block['type'] . 'ToHtml';
-                if (is_callable(array($this, $converter))) {dump($block['data']);exit;
+                if (is_callable(array($this, $converter))) {
                     // call the function and add the data as parameters
                     $html .= call_user_func_array(
                         array($this, $converter),
