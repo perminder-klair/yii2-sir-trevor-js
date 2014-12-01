@@ -52,6 +52,27 @@ Then in view:
 echo $model->renderSirTrevor() 
 ```
 
+Tp Upload Images
+----------------
+
+To upload Images, a demo file is included with extension `actions/UploadAction.php`
+
+Extend or copy it to your application and modify according to needs.
+
+Include action in controller: 
+
+```php
+public function actions()
+{
+    return [
+        'upload' => [
+            'class' => 'kato\actions\SirTrevorUploadAction',
+        ],
+    ];
+}
+
+```
+
 ## Yii 1
 
 This widget may be used in Yii 1 applications.
