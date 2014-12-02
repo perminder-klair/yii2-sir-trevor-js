@@ -72,7 +72,9 @@ class SirTrevorConverter
 
                 // check if we have a converter for this type
                 $converter = $block['type'] . 'ToHtml';
-                if (is_callable(array($this, $converter))) {
+                if ($block['type'] == "redactor") {
+                    $html .= $this->redactorRender($block['data']);
+                } elseif (is_callable(array($this, $converter))) {
                     // call the function and add the data as parameters
                     $html .= call_user_func_array(
                         array($this, $converter),
@@ -347,6 +349,11 @@ class SirTrevorConverter
     public function renderTextImage($data)
     {
         return call_user_func(array($this->textImageRenderClass, 'run'), $data);
+    }
+
+    public function redactorRender($data)
+    {
+        return $data['redactor'];
     }
 
     /**

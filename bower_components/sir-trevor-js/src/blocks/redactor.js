@@ -17,17 +17,16 @@ module.exports = Block.extend({
     title: function() { return 'Redactor'; },
 
     editorHTML: function() {
-        timeStamp = Date.now();
-        return '<div id="redactor-editor-' + timeStamp + '" class="st-required st-text-block" contenteditable="true"></div>';
+        return '<textarea id="redactor-editor" name="redactor" class="st-required st-input-string st-redactor-input"></textarea>';
     },
 
     icon_name: '<i class="fa fa-pencil-square-o"></i>',
 
     onBlockRender : function () {
-        $('#redactor-editor-' + timeStamp).redactor();
+        this.$('#redactor-editor').redactor();
     },
 
     loadData: function(data){
-        this.getTextBlock().html(stToHTML(data.text, this.type));
+        this.$('textarea#redactor-editor').val(data.redactor);
     }
 });

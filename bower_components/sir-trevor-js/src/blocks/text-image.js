@@ -81,14 +81,6 @@ module.exports = Block.extend({
         }
     },
 
-    //beforeBlockRender: function () {
-    //    //var input_html = $("<div>", { 'class': 'st-block__inputs' });
-    //    //this.$inner.append(input_html);
-    //    //this.$inputs = input_html;
-    //
-    //    this.withMixin(BlockMixins.Uploadable);
-    //},
-
     onBlockRender: function(){
         /* Setup the upload button */
         this.$inputs.find('button').bind('click', function(ev){ ev.preventDefault(); });

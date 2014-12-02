@@ -6,10 +6,6 @@
  bootstrap, bootstrap3-wysihtml5-bower, fontawesome
  */
 
-/*
- Text Block
- */
-
 var Block = require('../block');
 var stToHTML = require('../to-html');
 var timeStamp = null;
@@ -21,17 +17,16 @@ module.exports = Block.extend({
     title: function() { return 'wysihtml'; },
 
     editorHTML: function() {
-        timeStamp = Date.now();
-        return '<div id="wysihtml-editor-' + timeStamp + '" class="st-required st-text-block" contenteditable="true"></div>';
+        return '<textarea id="wysihtml-editor" name="wysihtml" class="st-required st-input-string st-wysihtml-input"></textarea>';
     },
 
     icon_name: 'text',
 
     onBlockRender : function () {
-        $('#wysihtml-editor-' + timeStamp).wysihtml5();
+        this.$('#wysihtml-editor').wysihtml5();
     },
 
     loadData: function(data){
-        this.getTextBlock().html(stToHTML(data.text, this.type));
+        this.$('textarea#wysihtml-editor').val(data.wysihtml);
     }
 });
