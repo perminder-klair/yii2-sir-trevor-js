@@ -99,7 +99,7 @@ module.exports = Block.extend({
         this.ready();
     },
 
-    onDrop: function(transferData){
+    onDrop: function(transferData){console.log(transferData.files[0]);
         var file = transferData.files[0],
             urlAPI = (typeof URL !== "undefined") ? URL : (typeof webkitURL !== "undefined") ? webkitURL : null;
 
@@ -107,8 +107,7 @@ module.exports = Block.extend({
         if (/image/.test(file.type)) {
             this.loading();
             // Show this image on here
-            //this.$inputs.hide();
-            this.$('.img-preview').html($('<img>', { src: urlAPI.createObjectURL(file) })).show();
+            this.$('.img-preview').html($('<img>', { src: urlAPI.createObjectURL(file) }));
 
             this.uploader(file, this.onUploadSuccess, this.onUploadError);
         }
