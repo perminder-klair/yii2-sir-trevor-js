@@ -93,7 +93,12 @@
 
 .st-block .st-text-block {
   min-height: 180px;
+  max-height: 320px;
   height: auto; }
+
+.st-block .st-text-block--heading {
+  min-height: 34px;
+  line-height: 30px; }
 
 .st-block select {
   height: 46px; }
