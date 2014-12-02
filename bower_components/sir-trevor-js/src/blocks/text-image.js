@@ -86,7 +86,7 @@ module.exports = Block.extend({
         this.$('button.st-upload-btn').bind('click', function(ev){ ev.preventDefault(); });
         this.$('input:file').on('change', (function(ev) {
             this.onDrop(ev.currentTarget);
-        }).bind(this));
+        }).bind(this)); 
     },
 
     onUploadSuccess : function(data) {
