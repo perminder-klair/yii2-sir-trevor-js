@@ -86,7 +86,7 @@ module.exports = Block.extend({
         this.$('button.st-upload-btn').bind('click', function(ev){ ev.preventDefault(); });
         this.$('input:file').on('change', (function(ev) {
             this.onDrop(ev.currentTarget);
-        }).bind(this)); 
+        }).bind(this));
     },
 
     onUploadSuccess : function(data) {
@@ -99,7 +99,7 @@ module.exports = Block.extend({
         this.ready();
     },
 
-    onDrop: function(transferData){console.log(transferData.files[0]);
+    onDrop: function(transferData){
         var file = transferData.files[0],
             urlAPI = (typeof URL !== "undefined") ? URL : (typeof webkitURL !== "undefined") ? webkitURL : null;
 

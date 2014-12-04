@@ -13,17 +13,16 @@
   "dependencies": {
     "es5-shim": "~v4.0.3",
     "es6-shim": "~0.21.0",
-    "underscore": "~1.4.4",
     "Eventable": "~1.0.1",
     "jquery": "~1.9.1"
   },
   "homepage": "https://github.com/perminder-klair/sir-trevor-js",
-  "_release": "f588bc9eb6",
+  "_release": "87207636c2",
   "_resolution": {
     "type": "commit",
-    "commit": "f588bc9eb68310cf049ffdae15582fbd029dcff0"
+    "commit": "87207636c21d2689e684e419d1e94e29534b1657"
   },
   "_source": "https://github.com/perminder-klair/sir-trevor-js.git",
-  "_target": "f588bc9eb68310cf049ffdae15582fbd029dcff0",
+  "_target": "87207636c21d2689e684e419d1e94e29534b1657",
   "_originalSource": "https://github.com/perminder-klair/sir-trevor-js.git"
 }

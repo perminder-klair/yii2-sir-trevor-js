@@ -39,7 +39,6 @@ class SirTrevorAsset extends AssetBundle {
 
     public $js = [
         "es5-shim/es5-shim.js",
-        "es6-shim/es6-shim.js",
     ];
 
     public $depends = [
