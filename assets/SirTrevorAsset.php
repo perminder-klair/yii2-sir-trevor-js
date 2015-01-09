@@ -24,9 +24,9 @@ class SirTrevorAsset extends AssetBundle {
         }
 
         if ($this->debug !== 'true') {
-            $this->js[] = 'sir-trevor-js/sir-trevor.js';
+            $this->js[] = 'sir-trevor-js/build/sir-trevor.debug.js';
         } else {
-            $this->js[] = 'sir-trevor-js/sir-trevor.debug.js';
+            $this->js[] = 'sir-trevor-js/build/sir-trevor.debug.js';
         }
 
         parent::registerAssetFiles($view);
@@ -34,7 +34,7 @@ class SirTrevorAsset extends AssetBundle {
 
     public $css = [
         'sir-trevor-js/sir-trevor-icons.css',
-        'sir-trevor-js/sir-trevor.css',
+        'sir-trevor-js/build/sir-trevor.css',
     ];
 
     public $js = [

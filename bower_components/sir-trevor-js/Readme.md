@@ -45,7 +45,10 @@ ECMAScript 6 shims are bundled in by default; if the platform you wish to run on
 
 ## Dependencies
 
-Sir Trevor requires [Underscore](http://underscorejs.org/) (or LoDash), [jQuery](http://jquery.com) (or Zepto) and [Eventable](https://github.com/madebymany/eventable).
+It's up to you:
+
+* Bring your own jQuery or Zepto (and have it put itself on `window.$`) and use `sir-trevor.js` / `sir-trevor.min.js`
+* Or if you're using Browserify yourself, `npm install sir-trevor` and `require('sir-trevor')` it as you would expect.
 
 ## Contributing
 
@@ -61,21 +64,23 @@ Block Types can also easily be added to the ``SirTrevor.Blocks`` object. You can
 
 ### Compiling
 
-We use the awesome [Grunt](http://gruntjs.com/) for our build process. Before getting started please be sure to install the necessary dependencies via npm:
+Before getting started please be sure to install the necessary dependencies via npm:
 
 ``$ npm install``
 
-This should also install the dependencies of bower via the `postinstall` script. If you change bower dependencies, re-run this command.
+When completed, we have a couple of preset scripts:
 
-When completed you'll be able to run the various grunt commands provided:
+``$ npm run dev``
 
-``$ grunt``
+This compiles for development, and watches source files to recompile when you change something.
+
+``$ npm test``
+
+Runs the linter and test suite, just like the CI server does.
+
+``$ npm run dist``
 
 Concatenates scripts, compiles the Sass, runs the Jasmine tests and minifies the project.
-
-``$ grunt watch``
-
-Convenience method while developing to compile the Sass files and concatenate the Javascript on save of a file in the ``/src`` directory.
 
 Please ensure any pull requests have relevant Jasmine tests (where applicable).
 
