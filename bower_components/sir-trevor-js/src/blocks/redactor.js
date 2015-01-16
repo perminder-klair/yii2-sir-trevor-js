@@ -23,7 +23,9 @@ module.exports = Block.extend({
     icon_name: '<i class="fa fa-pencil-square-o"></i>',
 
     onBlockRender : function () {
-        this.$('#redactor-editor').redactor();
+        this.$('#redactor-editor').redactor({
+            buttonSource: true
+        });
     },
 
     loadData: function(data){

@@ -50,11 +50,14 @@ class SirTrevor extends \yii\widgets\InputWidget
     public $blockOptions = null;
 
     /**
-     * textarea options
-     * example: 'onBlockRender: function () { console.log("Text block rendered"); }'
+     * other blocks options
+     * example:
+     * 'otherBlockOptions' => [
+     *  'Redactor' => 'onBlockRender: function () { this.$("#redactor-editor").redactor({ buttonSource: true }); }',
+     * ]
      * @var null
      */
-    public $textAreaOptions = null;
+    public $otherBlockOptions = null;
 
     /**
      * @throws \yii\base\InvalidConfigException
@@ -108,13 +111,19 @@ class SirTrevor extends \yii\widgets\InputWidget
      * Extends text area
      * @return string
      */
-    public function getTextAreaOptions()
+    public function getOtherBlocksOptions()
     {
-        if (!is_null($this->textAreaOptions)) {
-            return 'SirTrevor.setBlockOptions("Text", {' . $this->textAreaOptions . '});' . PHP_EOL;
+        $options = '';
+        if (!is_null($this->otherBlockOptions)) {
+            //return 'SirTrevor.setBlockOptions("' . $blockName . '", {' . $this->textAreaOptions . '});' . PHP_EOL;
+            if (is_array($this->otherBlockOptions)) {
+                foreach ($this->otherBlockOptions as $key => $value) {
+                    $options .= 'SirTrevor.setBlockOptions("' . $key . '", {' . $value . '});' . PHP_EOL;
+                }
+            }
         }
 
-        return '';
+        return $options;
     }
 
     /**
@@ -125,8 +134,8 @@ class SirTrevor extends \yii\widgets\InputWidget
         if (is_null($this->blockOptions)) {
             $this->blockOptions = Json::encode(
                 [
-                    'el'          => new JsExpression("$('.{$this->el}')"),
-                    'blockTypes'  => $this->blockTypes,
+                    'el' => new JsExpression("$('.{$this->el}')"),
+                    'blockTypes' => $this->blockTypes,
                     'defaultType' => false
                 ]
             );
@@ -145,7 +154,7 @@ class SirTrevor extends \yii\widgets\InputWidget
             $this->initJs = 'SirTrevor.DEBUG = ' . $this->debug . ';' . PHP_EOL;
             $this->initJs .= 'SirTrevor.LANGUAGE = "' . $this->language . '";' . PHP_EOL;
             $this->initJs .= 'SirTrevor.setDefaults({ uploadUrl: "' . $this->getImageUploadUrl() . '" });' . PHP_EOL;
-            $this->initJs .= $this->getTextAreaOptions();
+            $this->initJs .= $this->getOtherBlocksOptions();
             $this->initJs .= "window.editor = new SirTrevor.Editor(" . $this->getBlockOptions() . ");" . PHP_EOL;
         }
 
