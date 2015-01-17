@@ -10,5 +10,6 @@ module.exports = {
     Video: require('./video'),
     Wysihtml: require('./wysihtml'),
     Redactor: require('./redactor'),
-    Textimage: require('./text-image')
+    Textimage: require('./text-image'),
+    Headingtext: require('./heading-text')
 };

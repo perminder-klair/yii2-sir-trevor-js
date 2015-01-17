@@ -82,6 +82,8 @@ class SirTrevorConverter
                     );
                 } elseif ($block['type'] == "textimage") {
                     $html .= $this->renderTextImage($block['data']);
+                } elseif ($block['type'] == "headingtext") {
+                    $html .= $this->renderHeadingText($block['data']);
                 } elseif ($block['type'] == "tweet") {
                     // special twitter
                     $html .= $this->twitterToHtml($block['data']);
@@ -351,9 +353,27 @@ class SirTrevorConverter
         return call_user_func(array($this->textImageRenderClass, 'run'), $data);
     }
 
+    public function renderHeadingText($data)
+    {
+        $html = '';
+        $html .= $data['title'];
+        $html .= $this->defaultToHtml($data['text']);
+        return $html;
+    }
+
     public function redactorRender($data)
     {
         return $data['redactor'];
+    }
+
+    /**
+     * TODO
+     * @param $data
+     * @return mixed
+     */
+    public function twitterToHtml($data)
+    {
+        return $data;
     }
 
     /**
