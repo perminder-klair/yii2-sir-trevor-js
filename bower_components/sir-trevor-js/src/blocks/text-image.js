@@ -18,7 +18,7 @@ var template = _.template([
             '<div class="col-12">',
                 '<label class="st-input-label"><%= i18n.t("blocks:textimage:heading_field") %></label>',
                 '<input maxlength="140" name="title" placeholder="<%= i18n.t("blocks:textimage:heading_field") %>"',
-                ' class="st-input-string st-required js-title-input" type="text" />',
+                ' class="st-input-string js-title-input" type="text" />',
             '</div>',
             '<div class="col-12">',
             '<label class="st-input-label">Text</label>',
