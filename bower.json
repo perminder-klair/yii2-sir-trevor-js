@@ -2,6 +2,6 @@
     "name": "yii2-sir-trevor-js",
     "version": "0.0.1",
     "dependencies": {
-        "sir-trevor-js": "https://github.com/perminder-klair/sir-trevor-js.git#7c14e42f475f2c102ef02e051f0d7c3ebef9da78"
+        "sir-trevor-js": "https://github.com/perminder-klair/sir-trevor-js.git#0b60a690bc605105477b8e5829bb539d3ae849b0"
     }
 }

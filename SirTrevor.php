@@ -60,6 +60,12 @@ class SirTrevor extends \yii\widgets\InputWidget
     public $otherBlockOptions = null;
 
     /**
+     * Enable or Disable Scroll of Editor on Init of a block
+     * @var bool
+     */
+    public $disableScroll = false;
+
+    /**
      * @throws \yii\base\InvalidConfigException
      */
     public function init()
@@ -71,6 +77,14 @@ class SirTrevor extends \yii\widgets\InputWidget
                 $this->debug = 'true';
             } else {
                 $this->debug = 'false';
+            }
+        }
+
+        if (is_bool($this->disableScroll)) {
+            if ($this->disableScroll === true) {
+                $this->disableScroll = 'true';
+            } else {
+                $this->disableScroll = 'false';
             }
         }
 
@@ -151,8 +165,9 @@ class SirTrevor extends \yii\widgets\InputWidget
         $view = $this->getView();
 
         if (is_null($this->initJs)) {
-            $this->initJs = 'SirTrevor.DEBUG = ' . $this->debug . ';' . PHP_EOL;
-            $this->initJs .= 'SirTrevor.LANGUAGE = "' . $this->language . '";' . PHP_EOL;
+            $this->initJs = 'SirTrevor.config.debug = ' . $this->debug . ';' . PHP_EOL;
+            $this->initJs .= 'SirTrevor.config.language = "' . $this->language . '";' . PHP_EOL;
+            $this->initJs .= 'SirTrevor.config.disableScroll = ' . $this->disableScroll . ';' . PHP_EOL;
             $this->initJs .= 'SirTrevor.setDefaults({ uploadUrl: "' . $this->getImageUploadUrl() . '" });' . PHP_EOL;
             $this->initJs .= $this->getOtherBlocksOptions();
             $this->initJs .= "window.editor = new SirTrevor.Editor(" . $this->getBlockOptions() . ");" . PHP_EOL;
