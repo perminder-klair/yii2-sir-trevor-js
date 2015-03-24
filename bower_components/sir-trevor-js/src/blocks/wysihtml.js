@@ -17,7 +17,7 @@ module.exports = Block.extend({
     title: function() { return 'wysihtml'; },
 
     editorHTML: function() {
-        return '<textarea id="wysihtml-editor" name="wysihtml" class="st-required st-input-string st-wysihtml-input"></textarea>';
+        return '<textarea id="wysihtml-editor" name="wysihtml" class="st-required st-input-string st-wysihtml-input" rows="8" style="width: 100%;"></textarea>';
     },
 
     icon_name: 'text',

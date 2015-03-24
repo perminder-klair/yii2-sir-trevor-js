@@ -17,12 +17,12 @@
     "jquery": "~1.9.1"
   },
   "homepage": "https://github.com/perminder-klair/sir-trevor-js",
-  "_release": "0b60a690bc",
+  "_release": "012ffa7cc4",
   "_resolution": {
     "type": "commit",
-    "commit": "0b60a690bc605105477b8e5829bb539d3ae849b0"
+    "commit": "012ffa7cc43098c85722aad08dbd97cff9f4c368"
   },
   "_source": "https://github.com/perminder-klair/sir-trevor-js.git",
-  "_target": "0b60a690bc605105477b8e5829bb539d3ae849b0",
+  "_target": "012ffa7cc43098c85722aad08dbd97cff9f4c368",
   "_originalSource": "https://github.com/perminder-klair/sir-trevor-js.git"
 }
