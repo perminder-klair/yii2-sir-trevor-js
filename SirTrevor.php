@@ -92,8 +92,11 @@ class SirTrevor extends \yii\widgets\InputWidget
 
         Yii::setAlias('@sirtrevorjs', dirname(__FILE__));
         $this->registerAsset();
+    }
 
-        echo $this->renderInput();
+    public function run()
+    {
+        return $this->renderInput();
     }
 
     /**
