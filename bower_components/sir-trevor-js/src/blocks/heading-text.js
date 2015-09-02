@@ -17,11 +17,11 @@ var template = _.template([
             '<div class="col-12">',
                 '<label class="st-input-label">Title</label>',
                 '<input maxlength="140" name="title" placeholder="headingtext"',
-                ' class="st-input-string st-required js-title-input" type="text" />',
+                ' class="st-input-string js-title-input" type="text" />',
             '</div>',
             '<div class="col-12">',
             '<label class="st-input-label">Text</label>',
-                '<div id="wysihtml-editor" class="st-required st-text-block" contenteditable="true"></div>',
+                '<div class="st-required st-text-block" contenteditable="true"></div>',
             '</div>',
         '</div>',
     '</div>'
