@@ -175,7 +175,7 @@ class SirTrevorConverter
     {
         $url = (isset($file['url'])) ? $file['url'] : '';
 
-        $_return = '<figure class="st-image"><img src="' . $url . '" alt="" />';
+        $_return = '<figure class="st-image"><img class="img-responsive" src="' . $url . '" alt="" />';
 
         if ($caption != null) {
             $_return .= '<figcaption>' . $caption . '</figcaption>';
